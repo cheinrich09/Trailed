@@ -3,7 +3,9 @@ using System.Collections;
 
 public class TrailScript : MonoBehaviour {
 	float trailTimer = 0;
+
 	float maxTime = .05f;
+
 	int maxPoints = 200;
 	Vector3[] positions;
 	int numPoints = 0;
@@ -55,6 +57,7 @@ public class TrailScript : MonoBehaviour {
 				}
 			}
 		}
+
 	}
 	
 	void ResetTrail()
@@ -62,4 +65,5 @@ public class TrailScript : MonoBehaviour {
 		trail.SetVertexCount(0);
 		numPoints = 0;
 	}
+
 }
