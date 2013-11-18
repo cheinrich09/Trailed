@@ -1,8 +1,30 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class NetworkManager : MonoBehaviour
 {
+ 	public class PlayerInfo
+    {
+		// network name of the player
+        public NetworkPlayer networkPlayer;
+        public string name;
+		
+		// we might want to store a bunch of content per client
+        public double clickTime;
+		public Color color;
+		
+		// the GameObject that represents this players avatar in this example.  Could obviously store more info here.
+		public GameObject go;
+		
+        public bool IsLocal()
+        {
+            //If disconnected we are "-1"
+            return (Network.player == networkPlayer || Network.player + "" == "-1");
+        }
+    }
+	
+	
 	//----------------- variables ------------------
 	
 	//network info
@@ -40,12 +62,13 @@ public class NetworkManager : MonoBehaviour
 	private int infoWindowWidth = 180;
 	private int infoWindowHeight = 60;
 	
-	public float BulletForce;
+	//public float BulletForce;
 	private bool Victory = false;
 	private string VictoryMessage = " is the Winner!";
 	
-	
-	
+	//player/Object list
+	public Dictionary<NetworkPlayer,PlayerInfo> playerList = new Dictionary<NetworkPlayer,PlayerInfo>();
+	public Dictionary<NetworkViewID,GameObject> myGOList = new Dictionary<NetworkViewID,GameObject>();
 
 	//----------------end variables -----------------
 
@@ -106,12 +129,12 @@ public class NetworkManager : MonoBehaviour
 		}
 	}
 	
+	[RPC]
 	void addPlayer()
 	{
 		GameObject GO = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnScript>().spawnPlayer();
 		Debug.Log ("Call RPC");
 		networkView.RPC("SetPlayer", RPCMode.AllBuffered, GO.networkView.viewID, playerName, playerColor);	
-		
 	}
 	
 	public void onBulletCollide(GameObject bullet, Collision collision)
@@ -147,15 +170,15 @@ public class NetworkManager : MonoBehaviour
 		}
 	}
 	
-	[RPC]
+	/*[RPC]
 	void SetBullet(NetworkViewID BulletID, NetworkViewID ShooterID)
 	{
 		NetworkView bulletView = NetworkView.Find (BulletID);
 		NetworkView shooterView = NetworkView.Find(ShooterID);
 		bulletView.gameObject.GetComponent<BulletScript>().parent = shooterView.gameObject;
-		bulletView.gameObject.rigidbody.velocity = Vector3.zero;
-		bulletView.gameObject.rigidbody.AddForce(BulletForce * bulletView.gameObject.transform.forward);
-	}
+		//bulletView.gameObject.rigidbody.velocity = Vector3.zero;
+		//bulletView.gameObject.rigidbody.AddForce(BulletForce * bulletView.gameObject.transform.forward);
+	}*/
 
 	
 	[RPC]
