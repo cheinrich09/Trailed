@@ -5,6 +5,12 @@ public class TrailScript : MonoBehaviour {
 	float trailTimer = 0;
 
 	float maxTime = .05f;
+	
+	float dropTime = .5f;
+	
+	public GameObject trailPoint;
+	
+	GameObject[] trailArr;
 
 	int maxPoints = 200;
 	Vector3[] positions;
@@ -17,10 +23,39 @@ public class TrailScript : MonoBehaviour {
 	void Start () {
 		trail = gameObject.GetComponentInChildren<LineRenderer>();
 		positions = new Vector3[maxPoints];
+		trailArr = new GameObject[maxPoints];
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
+		trailTimer += Time.deltaTime;
+		
+		for(int i = 0; i < trailArr.Length; i++)
+		{
+			if(trailArr[i] != null)
+			{
+				trailArr[i].GetComponent<PointScript>().isStatic = isStealthWalking;
+				if(trailArr[i].GetComponent<PointScript>().isDead)
+				{
+					RemovePoint(trailArr[i]);
+				}
+			}
+		}
+		
+		if(!isStealthWalking)
+		{
+			
+			if(trailTimer >= dropTime)
+			{
+				trailTimer = 0;
+				Instantiate(trailPoint, transform.position, Quaternion.identity);
+				GameObject newPoint = (GameObject)Instantiate(trailPoint, transform.position, Quaternion.identity);
+				InsertPoint(newPoint);
+			}
+		}
+		
+		/*
 		if(isStealthWalking)
 		{
 			ResetTrail();
@@ -57,7 +92,33 @@ public class TrailScript : MonoBehaviour {
 				}
 			}
 		}
+		*/
 
+	}
+	
+	void InsertPoint(GameObject newPoint)
+	{
+		for(int i = 0; i < trailArr.Length; i++)
+		{
+			if(trailArr[i] == null)
+			{
+				trailArr[i] = newPoint;
+				break;
+			}
+		}
+	}
+	
+	public void RemovePoint(GameObject point)
+	{
+		for(int i = 0; i < trailArr.Length; i++)
+		{
+			if(trailArr[i] == point)
+			{
+				Destroy(trailArr[i]);
+				trailArr[i] = null;
+				break;
+			}
+		}
 	}
 	
 	void ResetTrail()
