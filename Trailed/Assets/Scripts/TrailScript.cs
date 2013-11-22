@@ -12,7 +12,7 @@ public class TrailScript : MonoBehaviour {
 	
 	GameObject[] trailArr;
 
-	int maxPoints = 200;
+	int maxPoints = 10;
 	Vector3[] positions;
 	int numPoints = 0;
 	
@@ -28,6 +28,11 @@ public class TrailScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
+		if(Input.GetKeyDown(KeyCode.R))
+		{
+			isStealthWalking = !isStealthWalking;	
+		}
 		
 		trailTimer += Time.deltaTime;
 		
@@ -114,6 +119,7 @@ public class TrailScript : MonoBehaviour {
 		{
 			if(trailArr[i] == point)
 			{
+				Debug.Log("PointRemoved");
 				Destroy(trailArr[i]);
 				trailArr[i] = null;
 				break;

@@ -25,6 +25,7 @@ public class PointScript : MonoBehaviour {
 		{
 			isDead = true;
 			Debug.Log("Kill Me");
+			Destroy(gameObject);
 		}
 	}
 }

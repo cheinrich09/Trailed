@@ -1,0 +1,16 @@
+﻿Player leaves a trail of points instead of a line.  Old trail code still exists, just commented out.
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   Trailed/Assets/Materials/trail_mat.mat
+#	modified:   Trailed/Assets/Prefabs/Player.prefab
+#	new file:   Trailed/Assets/Prefabs/TrailPoint.prefab
+#	new file:   Trailed/Assets/Prefabs/TrailPoint.prefab.meta
+#	new file:   Trailed/Assets/Scripts/PointScript.cs
+#	new file:   Trailed/Assets/Scripts/PointScript.cs.meta
+#	modified:   Trailed/Assets/Scripts/TrailScript.cs
+#
+
