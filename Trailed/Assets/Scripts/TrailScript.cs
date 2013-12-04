@@ -12,7 +12,7 @@ public class TrailScript : MonoBehaviour {
 	
 	float dropTime = .5f;
 	
-	public float stealthTimer = 3f;
+	public float stealthTimer = 5f;
 	
 	public GameObject trailPoint;
 	
