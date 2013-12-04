@@ -26,6 +26,7 @@ public class FPSInputControl : MonoBehaviour
 		//Bullets = new GameObject[10];
 		if(networkView.isMine)
 		{
+			Screen.showCursor = false; 
 			Camera.main.GetComponentInChildren<SmoothFollow>().target=transform;	
 		}
 		//bSpawn = this.gameObject.transform.FindChild("BulletSpawn").gameObject;
