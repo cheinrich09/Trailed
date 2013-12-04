@@ -6,7 +6,7 @@ public class PointScript : MonoBehaviour {
 	public bool isStatic = false;
 	public bool isDead = false;
 	private float age = 0;
-	private float lifetime = 5.0f;
+	private float lifetime = 7.5f;
 	
 	// Use this for initialization
 	void Start () {
@@ -24,7 +24,6 @@ public class PointScript : MonoBehaviour {
 		if(age >= lifetime)
 		{
 			isDead = true;
-			Debug.Log("Kill Me");
 			Destroy(gameObject);
 		}
 	}

@@ -29,7 +29,7 @@ public class FPSInputControl : MonoBehaviour
 			Screen.showCursor = false; 
 			Camera.main.GetComponentInChildren<SmoothFollow>().target=transform;	
 		}
-		bSpawn = this.gameObject.transform.FindChild("BulletSpawn").gameObject;
+		//bSpawn = this.gameObject.transform.FindChild("BulletSpawn").gameObject;
     }
 
     // Update is called once per frame
@@ -62,12 +62,12 @@ public class FPSInputControl : MonoBehaviour
         	// Apply the direction to the CharacterMotor
         	motor.inputMoveDirection = transform.rotation * directionVector;
         	motor.inputJump = Input.GetButton("Jump");
-			if(Input.GetMouseButtonDown(0))
-			{
-				Debug.Log("Fire Bullet");
-				GameObject.Find ("GameGO").GetComponent<NetworkManager>().FireBullet(this.gameObject);
+			//if(Input.GetMouseButtonDown(0))
+			//{
+				//Debug.Log("Fire Bullet");
+				//GameObject.Find ("GameGO").GetComponent<NetworkManager>().FireBullet(this.gameObject);
 				
-			}
+			//}
 		}
     }
 	

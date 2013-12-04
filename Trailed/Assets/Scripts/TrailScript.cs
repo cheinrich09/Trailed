@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TrailScript : MonoBehaviour {
+	
+	Dictionary<string, Material> mats;
+	
 	float trailTimer = 0;
 
 	float maxTime = .05f;
 	
 	float dropTime = .5f;
+	
+	public float stealthTimer = 3f;
 	
 	public GameObject trailPoint;
 	
@@ -21,6 +27,10 @@ public class TrailScript : MonoBehaviour {
 	LineRenderer trail;
 	// Use this for initialization
 	void Start () {
+		mats = new Dictionary<string, Material>();
+		mats.Add("normal", Resources.Load("Materials/Blue") as Material);
+		mats.Add("stealth", Resources.Load("Materials/trail_stealth_mat") as Material);
+		
 		trail = gameObject.GetComponentInChildren<LineRenderer>();
 		positions = new Vector3[maxPoints];
 		trailArr = new GameObject[maxPoints];
@@ -29,9 +39,15 @@ public class TrailScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+		gameObject.GetComponentInChildren<MeshRenderer>().material = mats["normal"];
+		
 		if(Input.GetKeyDown(KeyCode.R))
 		{
-			isStealthWalking = !isStealthWalking;	
+			isStealthWalking = !isStealthWalking;
+			if(stealthTimer <= 0)
+			{
+				isStealthWalking = false;
+			}
 		}
 		
 		trailTimer += Time.deltaTime;
@@ -50,13 +66,24 @@ public class TrailScript : MonoBehaviour {
 		
 		if(!isStealthWalking)
 		{
-			
 			if(trailTimer >= dropTime)
 			{
 				trailTimer = 0;
 				Instantiate(trailPoint, transform.position, Quaternion.identity);
 				GameObject newPoint = (GameObject)Instantiate(trailPoint, transform.position, Quaternion.identity);
 				InsertPoint(newPoint);
+			}
+		}
+		else
+		{
+			if(stealthTimer > 0)
+			{
+				stealthTimer -= Time.deltaTime;
+				gameObject.GetComponentInChildren<MeshRenderer>().material = mats["stealth"];
+			}
+			else
+			{
+				isStealthWalking = false;	
 			}
 		}
 		
@@ -127,8 +154,9 @@ public class TrailScript : MonoBehaviour {
 		}
 	}
 	
-	void ResetTrail()
+	public void ResetTrail()
 	{
+		Debug.Log("Trail Reset");
 		trail.SetVertexCount(0);
 		numPoints = 0;
 	}
