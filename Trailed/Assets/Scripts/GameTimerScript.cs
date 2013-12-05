@@ -3,16 +3,16 @@ using System.Collections;
 
 public class GameTimerScript : MonoBehaviour {
 	
-	private float GAME_LENGTH = 20;
-	private float floatTimer = 20;
-	public int gameTimer = 20;
+	private float GAME_LENGTH = 60;
+	private float floatTimer = 60;
+	public int gameTimer = 60;
 	public bool gameOver = false;
 	public bool start = false;
 	
 	private GUIText timerGUI;
 	// Use this for initialization
 	void Start () {
-		timerGUI = GameObject.Find("TimerGUI").GetComponent<GUIText>();
+		timerGUI = GameObject.Find("GUI_GameTimer").GetComponent<GUIText>();
 		StartGame ();
 	}
 	

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class TrailScript : MonoBehaviour {
 	
+	public PlayerGUIScript playerGUI;
+	
 	Dictionary<string, Material> mats;
 	
 	float trailTimer = 0;
@@ -27,6 +29,9 @@ public class TrailScript : MonoBehaviour {
 	LineRenderer trail;
 	// Use this for initialization
 	void Start () {
+		
+		playerGUI = gameObject.GetComponent<PlayerGUIScript>();
+		
 		mats = new Dictionary<string, Material>();
 		mats.Add("normal", Resources.Load("Materials/Blue") as Material);
 		mats.Add("stealth", Resources.Load("Materials/trail_stealth_mat") as Material);
@@ -66,6 +71,9 @@ public class TrailScript : MonoBehaviour {
 		
 		if(!isStealthWalking)
 		{
+			playerGUI.stealthGUI.text = "";
+			playerGUI.stealthTimerGUI.text = "";
+			
 			if(trailTimer >= dropTime)
 			{
 				trailTimer = 0;
@@ -78,6 +86,11 @@ public class TrailScript : MonoBehaviour {
 		{
 			if(stealthTimer > 0)
 			{
+				float roundedTimer = Mathf.Round(stealthTimer * 100f) / 100;
+				string timerText = roundedTimer.ToString();
+				playerGUI.stealthGUI.text = "Hidden";
+				playerGUI.stealthTimerGUI.text = timerText;
+			
 				stealthTimer -= Time.deltaTime;
 				gameObject.GetComponentInChildren<MeshRenderer>().material = mats["stealth"];
 			}

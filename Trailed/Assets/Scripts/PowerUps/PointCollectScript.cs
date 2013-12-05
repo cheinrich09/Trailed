@@ -15,6 +15,14 @@ public class PointCollectScript : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider coll)
 	{
-		Debug.Log("Point Collected");	
+		GameObject obj = coll.gameObject;
+		
+		if(obj.GetComponent<TrailScript>() != null)
+		{
+			obj.GetComponent<PlayerVarsScript>().points++;
+			obj.GetComponent<PlayerGUIScript>().MakeUpdate("Point Collected");
+			Debug.Log("Point Collected");
+			Destroy(gameObject);
+		}	
 	}
 }
