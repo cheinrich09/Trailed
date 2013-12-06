@@ -1,16 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SmoothFollow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Standard Assets\Character Controllers\Sources\Scripts\FPSInputController.js">
     <Files>
-      <File FileName="Assets\Scripts\SmoothFollow.cs" Line="45" Column="5" />
-      <File FileName="Assets\Scripts\Networking Scripts\DynamicObjectScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Networking Scripts\GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\NetworkManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SpawnScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Networking Scripts\NetworkStartTime.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Networking Scripts\PlayerControlledObjectScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Networking Scripts\Connect.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\FPSInputControl.cs" Line="1" Column="1" />
+      <File FileName="Assets\Standard Assets\Character Controllers\Sources\Scripts\FPSInputController.js" Line="12" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

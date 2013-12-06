@@ -155,6 +155,21 @@ public class NetworkManager : MonoBehaviour
 		//Destroy (bullet);
 	}
 	
+	public void onHunterCollide(GameObject hunter, Collision collision)
+	{
+		if(collision.gameObject.tag == "Player" && hunter.GetComponent<FPSInputControl>().isHunter && !collision.gameObject.GetComponent<FPSInputControl>().isHunter)
+		{
+			networkView.RPC ("FreezePlayer", RPCMode.AllBuffered, collision.gameObject.networkView.viewID);
+		}
+	}
+	
+	[RPC]
+	public void FreezePlayer(NetworkViewID CapturedID)
+	{
+		NetworkView CapturedView = NetworkView.Find(CapturedID);
+		CapturedView.gameObject.GetComponent<FPSInputController>().isFrozen = true;
+	}
+	
 	[RPC]
 	void Scored(NetworkViewID ShooterID, int updatedScore)
 	{
@@ -198,6 +213,7 @@ public class NetworkManager : MonoBehaviour
 		else if (gColor == "Orange")
 		{
 			gView.gameObject.GetComponentInChildren<MeshRenderer>().material = Resources.Load("Materials/Orange") as Material;
+			gView.gameObject.GetComponent<FPSInputControl>().isHunter = true;
 		}
 		else if (gColor == "Blue")
 		{

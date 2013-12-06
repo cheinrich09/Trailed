@@ -1,13 +1,15 @@
 private var motor : CharacterMotor;
+public var isFrozen : boolean;
 
 // Use this for initialization
 function Awake () {
 	motor = GetComponent(CharacterMotor);
+	isFrozen = false;
 }
 
 // Update is called once per frame
 function Update () {
-	if(networkView.isMine)
+	if(networkView.isMine && !isFrozen)
 	{
 		// Get the input vector from kayboard or analog stick
 		var directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));

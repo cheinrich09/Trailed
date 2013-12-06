@@ -13,6 +13,9 @@ public class FPSInputControl : MonoBehaviour
 	//public int BulletIndex;
 	public int Score;
 	public bool cheatEnabled;
+	public bool isHunter;
+	int cDelay;
+	
 	//public int Health;
 	//public GameObject[] Bullets;
 	//public GameObject BulletPrefab;
@@ -23,6 +26,7 @@ public class FPSInputControl : MonoBehaviour
         motor = GetComponent<CharacterMotor>();
 		//BulletIndex = 0;
 		Score = 0;
+		cDelay = 15;
 		//Bullets = new GameObject[10];
 		if(networkView.isMine)
 		{
@@ -40,7 +44,7 @@ public class FPSInputControl : MonoBehaviour
        		// Get the input vector from kayboard or analog stick
         	Vector3 directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 			Debug.DrawRay(transform.position, transform.forward);
-	
+			cDelay--;
        		if (directionVector != Vector3.zero)
         	{
         	    // Get the length of the directon vector and then normalize it
@@ -62,14 +66,25 @@ public class FPSInputControl : MonoBehaviour
         	// Apply the direction to the CharacterMotor
         	motor.inputMoveDirection = transform.rotation * directionVector;
         	motor.inputJump = Input.GetButton("Jump");
-			//if(Input.GetMouseButtonDown(0))
-			//{
+			/*if(Input.GetMouseButtonDown(0) && isHunter && cDelay == 0)
+			{
 				//Debug.Log("Fire Bullet");
 				//GameObject.Find ("GameGO").GetComponent<NetworkManager>().FireBullet(this.gameObject);
-				
-			//}
+				Debug.Log ("Attempt to Capture Enemy");
+				//Object Players[] = FindObjectsOfType("Player");
+				cDelay = 15;
+			}*/
 		}
     }
+	
+	void OnCollisionEnter(Collision collision)
+	{
+		//GameObject.Find ("GameGO").GetComponent<NetworkManager>().onBulletCollide(this.gameObject, collision);
+		if(networkView.isMine)
+		{
+			GameObject.Find ("GameGO").GetComponent<NetworkManager>().onHunterCollide(this.gameObject, collision);
+		}
+	}
 	
 	/*public GameObject FireBullet()
 	{

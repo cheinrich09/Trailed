@@ -35,12 +35,14 @@ public class SmoothFollow : MonoBehaviour
 		//transform.position = wantedPosition;//Vector3.Lerp (transform.position, wantedPosition, positionDamping * dt);
 	
 		transform.position = target.position;
+		//transform.position = new Vector3(target.position.x, target.position.y+(Input.mousePosition.y), target.position.z);
 		// adjust the height of the camera
 		//transform.position = new Vector3 (transform.position.x, currentHeight, transform.position.z);
 		
 		// look at the target
 
 		//transform.forward = Vector3.Lerp (transform.forward, target.position - transform.position, rotationDamping * dt);
+		//transform.forward = Vector3.Lerp (transform.forward, new Vector3(target.forward.x, (Input.mousePosition.y/10)+target.forward.y, target.forward.z), rotationDamping * dt);
 		transform.forward = Vector3.Lerp (transform.forward, target.forward, rotationDamping * dt);
 		//transform.forward = new Vector3(transform.forward.x, transform.forward.y+Input.mousePosition.y, transform.forward.z);
 		//transform.forward = Vector3.Lerp (transform.forward, new Vector3(target.forward.x, target.forward.y+Input.mousePosition.y, target.forward.z)-target.forward, rotationDamping * dt);
