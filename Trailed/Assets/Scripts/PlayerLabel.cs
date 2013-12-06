@@ -66,11 +66,12 @@ public class PlayerLabel : MonoBehaviour {
 			
 		}else 
 		{
-			
+			/*
 			theirStyle.normal.textColor = Color.white;	
 			theirStyle.fontSize = 12;
 			theirStyle.fontStyle = FontStyle.Bold;
-			theirStyle.clipping = TextClipping.Overflow;	
+			theirStyle.clipping = TextClipping.Overflow;
+			*/
 		}
 		//playerName = gameObject.name;
 	}
