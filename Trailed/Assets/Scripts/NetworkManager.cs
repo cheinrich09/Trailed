@@ -270,7 +270,7 @@ public class NetworkManager : MonoBehaviour
 		{
 			playerColor = "Green";
 		}
-		if (GUILayout.Button("Orange", GUILayout.Height (buttonHeight)))
+		if (GUILayout.Button("Hunter(Orange)", GUILayout.Height (buttonHeight)))
 		{
 			playerColor = "Orange";
 		}
