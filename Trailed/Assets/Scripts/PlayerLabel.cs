@@ -58,11 +58,13 @@ public class PlayerLabel : MonoBehaviour {
 		//Debug.Log("I just got instantiated and my networkView.owner is "+ networkView.owner); 
 		if(networkView.isMine)
 		{	
+			/*
 			myStyle.normal.textColor = Color.black;	
 			myStyle.fontSize = 12;
 			myStyle.fontStyle = FontStyle.Normal;
 			//Allow the text to extend beyond the width of the label	
 			myStyle.clipping = TextClipping.Overflow;
+			*/
 			
 		}else 
 		{
@@ -106,9 +108,9 @@ public class PlayerLabel : MonoBehaviour {
 			else style = theirStyle;
 			
 			
-			GUI.Label(new Rect(screenPosition.x - labelWidth / 2,
-			                   Screen.height - screenPosition.y - labelTop,
-			                   labelWidth, labelHeight), playerName+": "+gameObject.GetComponent<FPSInputControl>().Score, style);
+			//GUI.Label(new Rect(screenPosition.x - labelWidth / 2,
+			                   //Screen.height - screenPosition.y - labelTop,
+			                   //labelWidth, labelHeight), playerName+": "+gameObject.GetComponent<FPSInputControl>().Score, style);
 
 		}
 	}

@@ -36,12 +36,6 @@ public class PlayerGUIScript : MonoBehaviour {
 				updatesGUI.text = "";
 			}
 		}
-		else
-		{
-			stealthGUI.text = "";
-			stealthTimerGUI.text = "";
-			updatesGUI.text = "";
-		}
 	}
 	
 	public void MakeUpdate(string message)

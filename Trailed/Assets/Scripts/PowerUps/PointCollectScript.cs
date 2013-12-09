@@ -19,9 +19,12 @@ public class PointCollectScript : MonoBehaviour {
 		
 		if(obj.GetComponent<TrailScript>() != null)
 		{
-			obj.GetComponent<PlayerVarsScript>().points++;
-			obj.GetComponent<PlayerGUIScript>().MakeUpdate("Point Collected");
-			Debug.Log("Point Collected");
+			if(obj.GetComponent<NetworkView>().isMine)
+			{
+				obj.GetComponent<PlayerVarsScript>().points++;
+				obj.GetComponent<PlayerGUIScript>().MakeUpdate("Point Collected");
+				Debug.Log("Point Collected");
+			}
 			Destroy(gameObject);
 		}	
 	}

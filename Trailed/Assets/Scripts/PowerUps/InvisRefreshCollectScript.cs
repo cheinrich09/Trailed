@@ -19,11 +19,14 @@ public class InvisRefreshCollectScript : MonoBehaviour {
 		
 		if(obj.GetComponent<TrailScript>() != null)
 		{
-			TrailScript trailScript = obj.GetComponent<TrailScript>();
-			trailScript.stealthTimer = 5f;
-			trailScript.playerGUI.MakeUpdate("Stealth Refreshed");
+			if(obj.GetComponent<NetworkView>().isMine)
+			{
+				TrailScript trailScript = obj.GetComponent<TrailScript>();
+				trailScript.stealthTimer = 5f;
+				trailScript.playerGUI.MakeUpdate("Stealth Refreshed");
 			
-			Debug.Log("Stealth Timer refreshed");
+				Debug.Log("Stealth Timer refreshed");
+			}
 		}
 	}
 }

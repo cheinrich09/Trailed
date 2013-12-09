@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class TrailScript : MonoBehaviour {
 	
 	public PlayerGUIScript playerGUI;
+	NetworkView view;
 	
 	Dictionary<string, Material> mats;
 	
@@ -31,6 +32,7 @@ public class TrailScript : MonoBehaviour {
 	void Start () {
 		
 		playerGUI = gameObject.GetComponent<PlayerGUIScript>();
+		view = gameObject.GetComponent<NetworkView>();
 		
 		mats = new Dictionary<string, Material>();
 		mats.Add("normal", Resources.Load("Materials/Blue") as Material);
@@ -46,59 +48,64 @@ public class TrailScript : MonoBehaviour {
 		
 		gameObject.GetComponentInChildren<MeshRenderer>().material = mats["normal"];
 		
-		if(Input.GetKeyDown(KeyCode.R))
+		if(view.isMine)
 		{
-			isStealthWalking = !isStealthWalking;
-			if(stealthTimer <= 0)
-			{
-				isStealthWalking = false;
-			}
-		}
 		
-		trailTimer += Time.deltaTime;
-		
-		for(int i = 0; i < trailArr.Length; i++)
-		{
-			if(trailArr[i] != null)
+			if(Input.GetKeyDown(KeyCode.R))
 			{
-				trailArr[i].GetComponent<PointScript>().isStatic = isStealthWalking;
-				if(trailArr[i].GetComponent<PointScript>().isDead)
+				isStealthWalking = !isStealthWalking;
+				if(stealthTimer <= 0)
 				{
-					RemovePoint(trailArr[i]);
+					isStealthWalking = false;
 				}
 			}
-		}
 		
-		if(!isStealthWalking)
-		{
-			playerGUI.stealthGUI.text = "";
-			playerGUI.stealthTimerGUI.text = "";
-			
-			if(trailTimer >= dropTime)
+			trailTimer += Time.deltaTime;
+		
+			for(int i = 0; i < trailArr.Length; i++)
 			{
-				trailTimer = 0;
-				Instantiate(trailPoint, transform.position, Quaternion.identity);
-				GameObject newPoint = (GameObject)Instantiate(trailPoint, transform.position, Quaternion.identity);
-				InsertPoint(newPoint);
+				if(trailArr[i] != null)
+				{
+					trailArr[i].GetComponent<PointScript>().isStatic = isStealthWalking;
+					if(trailArr[i].GetComponent<PointScript>().isDead)
+					{
+						RemovePoint(trailArr[i]);
+					}
+				}
 			}
-		}
-		else
-		{
-			if(stealthTimer > 0)
+		
+			if(!isStealthWalking)
 			{
-				float roundedTimer = Mathf.Round(stealthTimer * 100f) / 100;
-				string timerText = roundedTimer.ToString();
-				playerGUI.stealthGUI.text = "Hidden";
-				playerGUI.stealthTimerGUI.text = timerText;
+				playerGUI.stealthGUI.text = "";
+				playerGUI.stealthTimerGUI.text = "";
 			
-				stealthTimer -= Time.deltaTime;
-				gameObject.GetComponentInChildren<MeshRenderer>().material = mats["stealth"];
+				if(trailTimer >= dropTime)
+				{
+					trailTimer = 0;
+					Instantiate(trailPoint, transform.position, Quaternion.identity);
+					GameObject newPoint = (GameObject)Instantiate(trailPoint, transform.position, Quaternion.identity);
+					InsertPoint(newPoint);
+				}
 			}
 			else
 			{
-				isStealthWalking = false;	
+				if(stealthTimer > 0)
+				{
+					float roundedTimer = Mathf.Round(stealthTimer * 100f) / 100;
+					string timerText = roundedTimer.ToString();
+					playerGUI.stealthGUI.text = "Hidden";
+					playerGUI.stealthTimerGUI.text = timerText;
+			
+					stealthTimer -= Time.deltaTime;
+					gameObject.GetComponentInChildren<MeshRenderer>().material = mats["stealth"];
+				}
+				else
+				{
+					isStealthWalking = false;	
+				}
 			}
-		}
+			
+		}//End is mine
 		
 		/*
 		if(isStealthWalking)
