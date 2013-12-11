@@ -6,7 +6,7 @@ public class TrailScript : MonoBehaviour {
 	
 	public PlayerGUIScript playerGUI;
 	
-	Dictionary<string, Material> mats;
+	//Dictionary<string, Material> mats;
 	
 	float trailTimer = 0;
 
@@ -32,9 +32,9 @@ public class TrailScript : MonoBehaviour {
 		
 		playerGUI = gameObject.GetComponent<PlayerGUIScript>();
 		
-		mats = new Dictionary<string, Material>();
-		mats.Add("normal", Resources.Load("Materials/Blue") as Material);
-		mats.Add("stealth", Resources.Load("Materials/trail_stealth_mat") as Material);
+		//mats = new Dictionary<string, Material>();
+		//mats.Add("normal", Resources.Load("Materials/Blue") as Material);
+		//mats.Add("stealth", Resources.Load("Materials/trail_stealth_mat") as Material);
 		
 		trail = gameObject.GetComponentInChildren<LineRenderer>();
 		positions = new Vector3[maxPoints];
@@ -44,7 +44,8 @@ public class TrailScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		gameObject.GetComponentInChildren<MeshRenderer>().material = mats["normal"];
+		//gameObject.GetComponentInChildren<MeshRenderer>().material = mats["normal"];
+		gameObject.GetComponentInChildren<MeshRenderer>().material = gameObject.GetComponent<PlayerVarsScript>().NormalColor;
 		
 		if(Input.GetKeyDown(KeyCode.R))
 		{
@@ -92,7 +93,8 @@ public class TrailScript : MonoBehaviour {
 				playerGUI.stealthTimerGUI.text = timerText;
 			
 				stealthTimer -= Time.deltaTime;
-				gameObject.GetComponentInChildren<MeshRenderer>().material = mats["stealth"];
+				//gameObject.GetComponentInChildren<MeshRenderer>().material = mats["stealth"];
+				gameObject.GetComponentInChildren<MeshRenderer>().material = gameObject.GetComponent<PlayerVarsScript>().StealthColor;
 			}
 			else
 			{

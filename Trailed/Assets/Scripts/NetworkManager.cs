@@ -204,28 +204,33 @@ public class NetworkManager : MonoBehaviour
 		//gView.gameObject.name = gName;
 		//gView.gameObject.GetComponent<PlayerLabel>().PlayerName = "Player "+gView.viewID;
 		//gView.gameObject.name = gName;
-		gView.gameObject.GetComponent<PlayerLabel>().PlayerName = gName;
-		gView.gameObject.GetComponent<PlayerLabel>().PlayerColor = gColor;
+		//gView.gameObject.GetComponent<PlayerLabel>().PlayerName = gName;
+		gView.gameObject.GetComponent<PlayerVarsScript>().PlayerColor = gColor;
 		if (gColor == "Red")
 		{
 			gView.gameObject.GetComponentInChildren<MeshRenderer>().material = Resources.Load("Materials/Red") as Material;
+			gView.gameObject.GetComponent<PlayerVarsScript>().NormalColor = Resources.Load("Materials/Red") as Material;
 		}
 		else if (gColor == "Orange")
 		{
 			gView.gameObject.GetComponentInChildren<MeshRenderer>().material = Resources.Load("Materials/Orange") as Material;
+					gView.gameObject.GetComponent<PlayerVarsScript>().NormalColor = Resources.Load("Materials/Orange") as Material;
 			gView.gameObject.GetComponent<FPSInputControl>().isHunter = true;
 		}
 		else if (gColor == "Blue")
 		{
 			gView.gameObject.GetComponentInChildren<MeshRenderer>().material = Resources.Load("Materials/Blue") as Material;
+			gView.gameObject.GetComponent<PlayerVarsScript>().NormalColor = Resources.Load("Materials/Blue") as Material;
 		}
 		else if (gColor == "Green")
 		{
 			gView.gameObject.GetComponentInChildren<MeshRenderer>().material = Resources.Load("Materials/Green") as Material;
+			gView.gameObject.GetComponent<PlayerVarsScript>().NormalColor = Resources.Load("Materials/Green") as Material;
 		}
 		else if (gColor == "Black")
 		{
 			gView.gameObject.GetComponentInChildren<MeshRenderer>().material = Resources.Load("Materials/Black") as Material;
+			gView.gameObject.GetComponent<PlayerVarsScript>().NormalColor = Resources.Load("Materials/Black") as Material;
 		}
 		Debug.Log("RPC Ran");
 	}

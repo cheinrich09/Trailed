@@ -32,11 +32,7 @@ public class PlayerLabel : MonoBehaviour {
 		get { return playerName;}
 		set {playerName = value; }}
 		
-	private string playerColor;
-	public string PlayerColor { 
-		get { return playerColor;}
-		set { playerColor = value; }
-	}
+
 	
 	private GUIStyle myStyle = new GUIStyle();
 	private GUIStyle theirStyle = new GUIStyle();
@@ -58,11 +54,11 @@ public class PlayerLabel : MonoBehaviour {
 		//Debug.Log("I just got instantiated and my networkView.owner is "+ networkView.owner); 
 		if(networkView.isMine)
 		{	
-			myStyle.normal.textColor = Color.black;	
-			myStyle.fontSize = 12;
-			myStyle.fontStyle = FontStyle.Normal;
+			//myStyle.normal.textColor = Color.black;	
+			//myStyle.fontSize = 12;
+			//myStyle.fontStyle = FontStyle.Normal;
 			//Allow the text to extend beyond the width of the label	
-			myStyle.clipping = TextClipping.Overflow;
+			//myStyle.clipping = TextClipping.Overflow;
 			
 		}else 
 		{

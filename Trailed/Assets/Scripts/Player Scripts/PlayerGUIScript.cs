@@ -5,7 +5,7 @@ public class PlayerGUIScript : MonoBehaviour {
 	
 	private NetworkView view;
 	
-	public GUIText stealthGUI;
+	private GUIText stealthGUI;
 	public GUIText stealthTimerGUI;
 	
 	private float updatesTimer = 2.0f;
