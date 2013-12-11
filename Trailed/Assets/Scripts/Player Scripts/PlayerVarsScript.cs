@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerVarsScript : MonoBehaviour {
 	
 	public int points = 0;
+	
 	private string playerColor;
 	public string PlayerColor { 
 		get { return playerColor;}

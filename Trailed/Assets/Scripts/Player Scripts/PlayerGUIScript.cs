@@ -5,7 +5,7 @@ public class PlayerGUIScript : MonoBehaviour {
 	
 	private NetworkView view;
 	
-	private GUIText stealthGUI;
+	public GUIText stealthGUI;
 	public GUIText stealthTimerGUI;
 	
 	private float updatesTimer = 2.0f;
@@ -35,12 +35,6 @@ public class PlayerGUIScript : MonoBehaviour {
 			{
 				updatesGUI.text = "";
 			}
-		}
-		else
-		{
-			stealthGUI.text = "";
-			stealthTimerGUI.text = "";
-			updatesGUI.text = "";
 		}
 	}
 	
