@@ -77,8 +77,8 @@ public class TrailScript : MonoBehaviour {
 		
 			if(!isStealthWalking)
 			{
-				playerGUI.stealthGUI.text = "";
-				playerGUI.stealthTimerGUI.text = "";
+				playerGUI.SetStealthGUI("");
+				playerGUI.SetStealthTimerGUI("");
 			
 
 				stealthTimer -= Time.deltaTime;
@@ -99,8 +99,8 @@ public class TrailScript : MonoBehaviour {
 				{
 					float roundedTimer = Mathf.Round(stealthTimer * 100f) / 100;
 					string timerText = roundedTimer.ToString();
-					playerGUI.stealthGUI.text = "Hidden";
-					playerGUI.stealthTimerGUI.text = timerText;
+					playerGUI.SetStealthGUI("Hidden");
+					playerGUI.SetStealthTimerGUI(timerText);
 			
 					stealthTimer -= Time.deltaTime;
 					gameObject.GetComponentInChildren<MeshRenderer>().material = gameObject.GetComponent<PlayerVarsScript>().StealthColor;

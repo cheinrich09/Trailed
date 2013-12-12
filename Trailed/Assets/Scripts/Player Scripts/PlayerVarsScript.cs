@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PlayerVarsScript : MonoBehaviour {
 	
+	private NetworkView view;
+	public PlayerGUIScript playerGUI;
+	
 	public int points = 0;
 	
 	private string playerColor;
@@ -20,11 +23,16 @@ public class PlayerVarsScript : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-	
+		view = gameObject.GetComponent<NetworkView>();
+		playerGUI = gameObject.GetComponent<PlayerGUIScript>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if(view.isMine)
+		{
+			string message = "Your Score: " + points.ToString();
+			playerGUI.SetPlayerScoreGUI(message);
+		}
 	}
 }
