@@ -69,6 +69,8 @@ public class NetworkManager : MonoBehaviour
 	//player/Object list
 	public Dictionary<NetworkPlayer,PlayerInfo> playerList = new Dictionary<NetworkPlayer,PlayerInfo>();
 	public Dictionary<NetworkViewID,GameObject> myGOList = new Dictionary<NetworkViewID,GameObject>();
+	
+	private GameObject[] pointSpawns;
 
 	//----------------end variables -----------------
 
@@ -137,6 +139,11 @@ public class NetworkManager : MonoBehaviour
 		networkView.RPC("SetPlayer", RPCMode.AllBuffered, GO.networkView.viewID, playerName, playerColor);	
 	}
 	
+	public void CreatePoint(GameObject location)
+	{
+		GameObject GO = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnScript>().spawnPoint(location);
+	}
+	
 	public void onBulletCollide(GameObject bullet, Collision collision)
 	{
 		/*if(collision.gameObject.networkView!=null)
@@ -164,6 +171,32 @@ public class NetworkManager : MonoBehaviour
 		}
 	}
 	
+	public void OnPointCollide()
+	{
+		int currentScore = GameObject.Find("GameGo").GetComponent<GameManagerScript>().totalScore;
+		currentScore++;
+		networkView.RPC ("PointCollected", RPCMode.AllBuffered, currentScore);
+	}
+	
+	public void OnGameOver()
+	{
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		
+		//Stop all the players from moving
+		for(int i = 0; i < players.Length; i++)
+		{
+			players[i].GetComponent<FPSInputControl>().isFrozen = true;
+			players[i].GetComponent<FPSInputController>().isFrozen = true;
+		}
+	}
+	
+	[RPC]
+	public void PointCollected(int newScore)
+	{
+		Debug.Log("PointCollected Entered");
+		GameObject.Find("GameGo").GetComponent<GameManagerScript>().totalScore = newScore;
+	}
+	
 	[RPC]
 	public void FreezePlayer(NetworkViewID CapturedID)
 	{
@@ -183,6 +216,8 @@ public class NetworkManager : MonoBehaviour
 			Victory = true;
 			///string messageToSend = (shooterView.gameObject.GetComponent<PlayerLabel>().PlayerName+" is the Winner!");
 			networkView.RPC("SendMessageToEveryone", RPCMode.All,VictoryMessage, shooterView.gameObject.GetComponent<PlayerLabel>().PlayerName+" (Winner)");
+		
+		
 		}
 	}
 	

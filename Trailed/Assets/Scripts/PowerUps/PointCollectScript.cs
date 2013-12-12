@@ -19,10 +19,11 @@ public class PointCollectScript : MonoBehaviour {
 		
 		if(obj.GetComponent<TrailScript>() != null)
 		{
-			if(obj.GetComponent<NetworkView>().isMine)
+			if(obj.GetComponent<NetworkView>().isMine && !obj.GetComponent<FPSInputControl>().isHunter)
 			{
 				obj.GetComponent<PlayerVarsScript>().points++;
 				obj.GetComponent<PlayerGUIScript>().MakeUpdate("Point Collected");
+				GameObject.Find ("GameGo").GetComponent<NetworkManager>().OnPointCollide();
 				Debug.Log("Point Collected");
 			}
 			Destroy(gameObject);

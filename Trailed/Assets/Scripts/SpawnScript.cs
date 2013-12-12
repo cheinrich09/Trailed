@@ -9,6 +9,7 @@ public class SpawnScript : MonoBehaviour {
 	
 	public GameObject PlayerPrefab;
 	public GameObject BulletPrefab;
+	public GameObject PointPrefab;
 	public GameObject[] spawnPoints;
 	// Use this for initialization
 	void Start () {
@@ -33,6 +34,12 @@ public class SpawnScript : MonoBehaviour {
 		return (GameObject)Network.Instantiate(BulletPrefab,
 			SpawnPoint.transform.position, Shooter.transform.rotation, 0);
 
+	}
+	
+	public GameObject spawnPoint(GameObject location)
+	{
+		return (GameObject)Network.Instantiate(PointPrefab, 
+			location.transform.position, Quaternion.identity, 0);
 	}
 	// Update is called once per frame
 	void Update () {
