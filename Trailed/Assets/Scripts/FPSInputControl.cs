@@ -14,6 +14,7 @@ public class FPSInputControl : MonoBehaviour
 	public int Score;
 	public bool cheatEnabled;
 	public bool isHunter;
+	public bool isFrozen = false;
 	int cDelay;
 	
 	//public int Health;
@@ -39,7 +40,7 @@ public class FPSInputControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if(networkView.isMine)
+		if(networkView.isMine && !isFrozen)
 		{
        		// Get the input vector from kayboard or analog stick
         	Vector3 directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));

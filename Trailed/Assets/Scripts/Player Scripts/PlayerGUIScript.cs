@@ -11,14 +11,7 @@ public class PlayerGUIScript : MonoBehaviour {
 	
 	public void SetStealthGUI(string message)
 	{
-		if(stealthGUI == null)
-		{
-			Debug.Log("Wat?");
-		}
-		else
-		{
-			stealthGUI.text = message;
-		}
+		stealthGUI.text = message;
 	}
 	
 	public void SetStealthTimerGUI(string message)
@@ -39,6 +32,19 @@ public class PlayerGUIScript : MonoBehaviour {
 		playerScoreGUI.text = message;
 	}
 	
+	private GUIText gameOverGUI;
+	private GUIText winnerGUI;
+	
+	public void SetGameOverGUI(string message)
+	{
+		gameOverGUI.text = message;
+	}
+	
+	public void SetWinnerGUI(string message)
+	{
+		winnerGUI.text = message;
+	}
+	
 	private float updatesTimer = 2.0f;
 	private float updateLength = 2.0f;
 	private GUIText updatesGUI;
@@ -55,6 +61,8 @@ public class PlayerGUIScript : MonoBehaviour {
 		updatesGUI = GameObject.Find("GUI_Updates").GetComponent<GUIText>();
 		totalScoreGUI = GameObject.Find("GUI_TotalScore").GetComponent<GUIText>();
 		playerScoreGUI = GameObject.Find("GUI_PlayerScore").GetComponent<GUIText>();
+		gameOverGUI = GameObject.Find("GUI_GameOver").GetComponent<GUIText>();
+		winnerGUI = GameObject.Find("GUI_Winner").GetComponent<GUIText>();
 	}
 	
 	// Update is called once per frame
@@ -72,6 +80,39 @@ public class PlayerGUIScript : MonoBehaviour {
 			}
 			
 			totalScoreGUI.text = "Total Score: " + gameManager.totalScore;
+			
+			//Display Winner
+			if(gameManager.gameOver)
+			{
+				gameOverGUI.text = "Game Over";
+				
+				if(gameManager.hunterHasWon && gameObject.GetComponent<FPSInputControl>().isHunter)
+				{
+					if(gameObject.GetComponent<FPSInputControl>().isHunter)
+					{
+						winnerGUI.color = Color.green;
+						winnerGUI.text = "Winner";
+					}
+					else
+					{
+						winnerGUI.color = Color.red;
+						winnerGUI.text = "You Lose";
+					}
+				}
+				else
+				{
+					if(!gameObject.GetComponent<FPSInputControl>().isHunter)
+					{
+						winnerGUI.color = Color.green;
+						winnerGUI.text = "Winner";
+					}
+					else
+					{
+						winnerGUI.color = Color.red;
+						winnerGUI.text = "You Lose";
+					}	
+				}
+			}
 		}
 	}
 	

@@ -177,6 +177,18 @@ public class NetworkManager : MonoBehaviour
 		networkView.RPC ("PointCollected", RPCMode.AllBuffered, currentScore);
 	}
 	
+	public void OnGameOver()
+	{
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		
+		//Stop all the players from moving
+		for(int i = 0; i < players.Length; i++)
+		{
+			players[i].GetComponent<FPSInputControl>().isFrozen = true;
+			players[i].GetComponent<FPSInputController>().isFrozen = true;
+		}
+	}
+	
 	[RPC]
 	public void PointCollected(int newScore)
 	{
@@ -203,6 +215,8 @@ public class NetworkManager : MonoBehaviour
 			Victory = true;
 			///string messageToSend = (shooterView.gameObject.GetComponent<PlayerLabel>().PlayerName+" is the Winner!");
 			networkView.RPC("SendMessageToEveryone", RPCMode.All,VictoryMessage, shooterView.gameObject.GetComponent<PlayerLabel>().PlayerName+" (Winner)");
+		
+		
 		}
 	}
 	
