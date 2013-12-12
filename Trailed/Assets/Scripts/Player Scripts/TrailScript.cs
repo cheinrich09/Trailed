@@ -47,7 +47,7 @@ public class TrailScript : MonoBehaviour {
 	void Update () {
 		
 		//gameObject.GetComponentInChildren<MeshRenderer>().material = mats["normal"];
-		gameObject.GetComponentInChildren<MeshRenderer>().material = gameObject.GetComponent<PlayerVarsScript>().NormalColor;
+		
 		
 		if(view.isMine)
 		{
@@ -82,8 +82,9 @@ public class TrailScript : MonoBehaviour {
 			
 
 				stealthTimer -= Time.deltaTime;
+				gameObject.GetComponentInChildren<MeshRenderer>().material = gameObject.GetComponent<PlayerVarsScript>().NormalColor;
 				//gameObject.GetComponentInChildren<MeshRenderer>().material = mats["stealth"];
-				gameObject.GetComponentInChildren<MeshRenderer>().material = gameObject.GetComponent<PlayerVarsScript>().StealthColor;
+				//gameObject.GetComponentInChildren<MeshRenderer>().material = gameObject.GetComponent<PlayerVarsScript>().StealthColor;
 
 				if(trailTimer >= dropTime)
 				{

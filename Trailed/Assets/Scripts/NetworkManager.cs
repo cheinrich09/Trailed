@@ -155,11 +155,12 @@ public class NetworkManager : MonoBehaviour
 		//Destroy (bullet);
 	}
 	
-	public void onHunterCollide(GameObject hunter, Collision collision)
+	public void onHunterCatch(GameObject hunter, GameObject prey)
 	{
-		if(collision.gameObject.tag == "Player" && hunter.GetComponent<FPSInputControl>().isHunter && !collision.gameObject.GetComponent<FPSInputControl>().isHunter)
+		Debug.Log ("HunterCatch");
+		if(prey.tag == "Player" && hunter.GetComponent<FPSInputControl>().isHunter && !prey.GetComponent<FPSInputControl>().isHunter)
 		{
-			networkView.RPC ("FreezePlayer", RPCMode.AllBuffered, collision.gameObject.networkView.viewID);
+			networkView.RPC ("FreezePlayer", RPCMode.AllBuffered, prey.networkView.viewID);
 		}
 	}
 	

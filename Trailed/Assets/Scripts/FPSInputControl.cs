@@ -16,6 +16,11 @@ public class FPSInputControl : MonoBehaviour
 	public bool isHunter;
 	int cDelay;
 	
+	private Ray topRay;
+	private Ray bottomRay;
+	public GameObject TopHitObject;
+	public GameObject BottomHitObject;
+
 	//public int Health;
 	//public GameObject[] Bullets;
 	//public GameObject BulletPrefab;
@@ -28,6 +33,7 @@ public class FPSInputControl : MonoBehaviour
 		Score = 0;
 		cDelay = 15;
 		//Bullets = new GameObject[10];
+		
 		if(networkView.isMine)
 		{
 			Screen.showCursor = false; 
@@ -66,14 +72,54 @@ public class FPSInputControl : MonoBehaviour
         	// Apply the direction to the CharacterMotor
         	motor.inputMoveDirection = transform.rotation * directionVector;
         	motor.inputJump = Input.GetButton("Jump");
-			/*if(Input.GetMouseButtonDown(0) && isHunter && cDelay == 0)
+	
+			//topRay = new Ray (transform.position, transform.forward);
+			
+			if(isHunter && Input.GetMouseButtonDown(0))// && cDelay == 0)
 			{
 				//Debug.Log("Fire Bullet");
 				//GameObject.Find ("GameGO").GetComponent<NetworkManager>().FireBullet(this.gameObject);
-				Debug.Log ("Attempt to Capture Enemy");
+				//Debug.Log ("Attempt to Capture Enemy");
 				//Object Players[] = FindObjectsOfType("Player");
-				cDelay = 15;
-			}*/
+				//cDelay = 15;
+				topRay = new Ray (new Vector3(transform.position.x, transform.position.y+0.5f, transform.position.z), transform.forward);
+				bottomRay = new Ray (new Vector3(transform.position.x, transform.position.y-0.5f, transform.position.z), transform.forward);
+				TopHitObject = null;
+				BottomHitObject = null;
+				RaycastHit hit;
+
+				if (Physics.Raycast(topRay,out hit, 5))
+				{
+					
+					//hitObject = TopHit.rigidbody.gameObject;
+					TopHitObject = hit.collider.gameObject;
+					if(TopHitObject.tag == "Player")
+					{
+						GameObject.Find ("GameGO").GetComponent<NetworkManager>().onHunterCatch(this.gameObject, TopHitObject);
+					}
+				}
+				if (Physics.Raycast(bottomRay, out hit, 5))
+				{
+					BottomHitObject = hit.collider.gameObject;
+					if (BottomHitObject.tag == "Player")
+					{
+						GameObject.Find ("GameGO").GetComponent<NetworkManager>().onHunterCatch(this.gameObject, BottomHitObject);
+					}
+				}
+				//if(Input.GetMouseButtonDown(0))
+				//{		
+				//}
+				/*else if (Physics.Raycast(bottomOrigin, transform.forward, hit, 10))
+				{
+					
+				}*/
+				//if(TopHit.rigidbody.gameObject.tag == "Player")
+				//{
+				//	
+				//}
+				
+				
+			}
 		}
     }
 	
@@ -82,7 +128,7 @@ public class FPSInputControl : MonoBehaviour
 		//GameObject.Find ("GameGO").GetComponent<NetworkManager>().onBulletCollide(this.gameObject, collision);
 		if(networkView.isMine)
 		{
-			GameObject.Find ("GameGO").GetComponent<NetworkManager>().onHunterCollide(this.gameObject, collision);
+			//GameObject.Find ("GameGO").GetComponent<NetworkManager>().onHunterCollide(this.gameObject, collision);
 		}
 	}
 	
