@@ -10,6 +10,7 @@ public class SpawnScript : MonoBehaviour {
 	public GameObject PlayerPrefab;
 	public GameObject BulletPrefab;
 	public GameObject PointPrefab;
+	public GameObject TrailPrefab;
 	public GameObject[] spawnPoints;
 	// Use this for initialization
 	void Start () {
@@ -39,6 +40,12 @@ public class SpawnScript : MonoBehaviour {
 	public GameObject spawnPoint(GameObject location)
 	{
 		return (GameObject)Network.Instantiate(PointPrefab, 
+			location.transform.position, Quaternion.identity, 0);
+	}
+	
+	public GameObject spawnTrail(GameObject location)
+	{
+		return (GameObject)Network.Instantiate(TrailPrefab, 
 			location.transform.position, Quaternion.identity, 0);
 	}
 	// Update is called once per frame

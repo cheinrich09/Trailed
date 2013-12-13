@@ -127,13 +127,21 @@ public class NetworkManager : MonoBehaviour
 		Application.LoadLevel (Application.loadedLevel);	
 	}
 	
+	public void AddToTrail(GameObject player)
+	{
+		GameObject GO = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnScript>().spawnTrail(player);
+	}
+	
+	[RPC]
+	public void SpawnTrail(float x, float y, float z)
+	{
+		//GameObject GO = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnScript>().spawnBullet(Shooter.GetComponent<FPSInputControl>().bSpawn, Shooter);
+	}
+	
 	public void FireBullet(GameObject Shooter)
 	{
-		if(!Victory)
-		{
-			GameObject GO = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnScript>().spawnBullet(Shooter.GetComponent<FPSInputControl>().bSpawn, Shooter);
-			networkView.RPC("SetBullet", RPCMode.AllBuffered, GO.networkView.viewID, Shooter.networkView.viewID);
-		}
+		GameObject GO = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnScript>().spawnBullet(Shooter.GetComponent<FPSInputControl>().bSpawn, Shooter);
+		networkView.RPC("SetBullet", RPCMode.AllBuffered, GO.networkView.viewID, Shooter.networkView.viewID);
 	}
 	
 	[RPC]

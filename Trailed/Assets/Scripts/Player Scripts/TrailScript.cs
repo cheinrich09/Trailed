@@ -80,8 +80,6 @@ public class TrailScript : MonoBehaviour {
 				playerGUI.SetStealthGUI("");
 				playerGUI.SetStealthTimerGUI("");
 			
-
-				stealthTimer -= Time.deltaTime;
 				gameObject.GetComponentInChildren<MeshRenderer>().material = gameObject.GetComponent<PlayerVarsScript>().NormalColor;
 				//gameObject.GetComponentInChildren<MeshRenderer>().material = mats["stealth"];
 				//gameObject.GetComponentInChildren<MeshRenderer>().material = gameObject.GetComponent<PlayerVarsScript>().StealthColor;
@@ -89,9 +87,10 @@ public class TrailScript : MonoBehaviour {
 				if(trailTimer >= dropTime)
 				{
 					trailTimer = 0;
-					Instantiate(trailPoint, transform.position, Quaternion.identity);
-					GameObject newPoint = (GameObject)Instantiate(trailPoint, transform.position, Quaternion.identity);
-					InsertPoint(newPoint);
+					//Instantiate(trailPoint, transform.position, Quaternion.identity);
+					//GameObject newPoint = (GameObject)Instantiate(trailPoint, transform.position, Quaternion.identity);
+					GameObject.Find("GameGo").GetComponent<NetworkManager>().AddToTrail(gameObject);
+					//InsertPoint(newPoint);
 				}
 			}
 			else
