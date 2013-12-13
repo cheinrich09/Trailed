@@ -175,12 +175,13 @@ public class NetworkManager : MonoBehaviour
 		//Destroy (bullet);
 	}
 	
-	public void onHunterCatch(GameObject hunter, GameObject prey)
+	public void OnHunterCatch(GameObject hunter, GameObject prey)
 	{
 		Debug.Log ("HunterCatch");
-		if(prey.tag == "Player" && hunter.GetComponent<FPSInputControl>().isHunter && !prey.GetComponent<FPSInputControl>().isHunter)
+		if(!prey.GetComponent<FPSInputControl>().isHunter)
 		{
 			networkView.RPC ("FreezePlayer", RPCMode.AllBuffered, prey.networkView.viewID);
+			//Network.RemoveRPCs(
 		}
 	}
 	
@@ -214,6 +215,7 @@ public class NetworkManager : MonoBehaviour
 	public void FreezePlayer(NetworkViewID CapturedID)
 	{
 		NetworkView CapturedView = NetworkView.Find(CapturedID);
+		CapturedView.gameObject.GetComponent<FPSInputController>().isFrozen = true;
 		CapturedView.gameObject.GetComponent<FPSInputController>().isFrozen = true;
 	}
 	

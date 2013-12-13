@@ -90,26 +90,32 @@ public class FPSInputControl : MonoBehaviour
 				//cDelay = 15;
 				topRay = new Ray (new Vector3(transform.position.x, transform.position.y+0.5f, transform.position.z), transform.forward);
 				bottomRay = new Ray (new Vector3(transform.position.x, transform.position.y-0.5f, transform.position.z), transform.forward);
-				TopHitObject = null;
-				BottomHitObject = null;
+				//TopHitObject = null;
+				//BottomHitObject = null;
 				RaycastHit hit;
 
-				if (Physics.Raycast(topRay,out hit, 5))
+				if (Physics.Raycast(topRay,out hit, 10))
 				{
 					
 					//hitObject = TopHit.rigidbody.gameObject;
 					TopHitObject = hit.collider.gameObject;
 					if(TopHitObject.tag == "Player")
 					{
-						GameObject.Find ("GameGO").GetComponent<NetworkManager>().onHunterCatch(this.gameObject, TopHitObject);
+						if (networkView.isMine)
+						{
+							GameObject.Find ("GameGO").GetComponent<NetworkManager>().OnHunterCatch(this.gameObject, hit.collider.gameObject);//TopHitObject);
+						}
 					}
 				}
-				if (Physics.Raycast(bottomRay, out hit, 5))
+				if (Physics.Raycast(bottomRay, out hit, 10))
 				{
 					BottomHitObject = hit.collider.gameObject;
 					if (BottomHitObject.tag == "Player")
 					{
-						GameObject.Find ("GameGO").GetComponent<NetworkManager>().onHunterCatch(this.gameObject, BottomHitObject);
+						if (networkView.isMine)
+						{
+							GameObject.Find ("GameGO").GetComponent<NetworkManager>().OnHunterCatch(this.gameObject, hit.collider.gameObject);//BottomHitObject);
+						}
 					}
 				}
 				//if(Input.GetMouseButtonDown(0))
