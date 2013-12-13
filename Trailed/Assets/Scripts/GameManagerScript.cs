@@ -47,46 +47,11 @@ public class GameManagerScript : MonoBehaviour {
 			}
 		}
 		
-		//Check if hunter lost
 		if(totalScore >= POINTS_TO_WIN)
 		{
 			gameOver = true;
 			hunterHasWon = false;
 		}
-		
-		//Check for hunter winning
-		if(!gameOver)
-		{
-			bool allFrozen = false;
-			GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
-			
-			//Make sure the hunter isn't the only one playing
-			if(allPlayers.Length > 1)
-			{
-				for(int i = 0; i < allPlayers.Length; i++)
-				{
-					if(!allPlayers[i].GetComponent<FPSInputControl>().isHunter)
-					{
-						if(allPlayers[i].GetComponent<FPSInputControl>().isFrozen)
-						{
-							allFrozen = true;
-						}
-						else
-						{
-							allFrozen = false;
-							break;
-						}
-					}
-				}
-			
-				if(allFrozen)
-				{
-					gameOver = true;
-					hunterHasWon = true;
-				}
-			}
-		}
-		
 		if(gameOver)
 		{
 			networkManager.OnGameOver();
