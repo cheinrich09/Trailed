@@ -23,6 +23,7 @@ public class PlayerVarsScript : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		StealthColor = Resources.Load("Materials/trail_stealth_mat") as Material;
 		view = gameObject.GetComponent<NetworkView>();
 		playerGUI = gameObject.GetComponent<PlayerGUIScript>();
 	}

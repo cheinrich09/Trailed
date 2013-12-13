@@ -50,7 +50,7 @@ public class PlayerGUIScript : MonoBehaviour {
 	private GUIText updatesGUI;
 	
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		
 		view = gameObject.GetComponent<NetworkView>();
 		

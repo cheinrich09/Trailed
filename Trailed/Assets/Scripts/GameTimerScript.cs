@@ -12,7 +12,6 @@ public class GameTimerScript : MonoBehaviour {
 	private GUIText timerGUI;
 	// Use this for initialization
 	void Start () {
-		timerGUI = GameObject.Find("GUI_GameTimer").GetComponent<GUIText>();
 		StartGame ();
 	}
 	
@@ -24,7 +23,7 @@ public class GameTimerScript : MonoBehaviour {
 			{
 				floatTimer -= Time.deltaTime;
 				gameTimer = (int)floatTimer;
-				timerGUI.text = "Time Remaining: " + gameTimer;
+				//timerGUI.text = "Time Remaining: " + gameTimer;
 		
 				if(gameTimer <= 0)
 				{
@@ -34,7 +33,7 @@ public class GameTimerScript : MonoBehaviour {
 			}
 			else
 			{
-				timerGUI.text = "Game Over";
+				//timerGUI.text = "Game Over";
 			}
 		}
 	}

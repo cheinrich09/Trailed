@@ -36,6 +36,7 @@ public class NetworkManager : MonoBehaviour
 
 	string tempName = "";
 	private bool makeMeAClient = false;
+	public bool isServer = false;
 	
 	public string PlayerName { 
 		get { return playerName;}
@@ -71,6 +72,7 @@ public class NetworkManager : MonoBehaviour
 	public Dictionary<NetworkViewID,GameObject> myGOList = new Dictionary<NetworkViewID,GameObject>();
 	
 	private GameObject[] pointSpawns;
+	private GameManagerScript gameManager;
 
 	//----------------end variables -----------------
 
@@ -80,6 +82,8 @@ public class NetworkManager : MonoBehaviour
 		if(playerName == "" || playerName == null) {
 			playerName = "No Name";	
 		}
+		
+		gameManager = GameObject.Find("GameGo").GetComponent<GameManagerScript>();
 		
 	}
 	
@@ -97,6 +101,7 @@ public class NetworkManager : MonoBehaviour
 	void OnServerInitialized ()
 	{
 		Debug.Log("Server is initialzed.");
+		isServer = true;
 		//GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnScript>().spawnPlayer();
 		addPlayer();
 	}
@@ -139,9 +144,17 @@ public class NetworkManager : MonoBehaviour
 		networkView.RPC("SetPlayer", RPCMode.AllBuffered, GO.networkView.viewID, playerName, playerColor);	
 	}
 	
-	public void CreatePoint(GameObject location)
+	
+	public void CreatePoint(int index)
 	{
-		GameObject GO = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnScript>().spawnPoint(location);
+		//GameObject GO = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnScript>().spawnPoint(location);
+		networkView.RPC("RespawnPoint", RPCMode.AllBuffered, index);
+	}
+	
+	[RPC]
+	public void RespawnPoint(int index)
+	{
+		gameManager.pointsList[index].GetComponent<PointCollectScript>().isCollected = false;
 	}
 	
 	public void onBulletCollide(GameObject bullet, Collision collision)
