@@ -1,17 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FPSInputControl.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player Scripts\TrailScript.cs">
     <Files>
+      <File FileName="Assets\Scripts\Networking Scripts\GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player Scripts\PlayerVarsScript.cs" Line="19" Column="33" />
       <File FileName="Assets\Scripts\Player Scripts\PlayerGUIScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\NetworkManager.cs" Line="166" Column="7" />
       <File FileName="Assets\Scripts\SpawnScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player Scripts\TrailScript.cs" Line="85" Column="122" />
-      <File FileName="Assets\Standard Assets\Character Controllers\Sources\Scripts\FPSInputController.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GrabScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerLabel.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\FPSInputControl.cs" Line="86" Column="38" />
-      <File FileName="\\banner.main.ad.rit.edu\students\cah2792\IGMProfile\Downloads\Final Sailboats\Final Sailboats\Final Sailboats\Assets\Scripts\Flocking.cs" Line="268" Column="70" />
+      <File FileName="Assets\Scripts\FPSInputControl.cs" Line="48" Column="6" />
+      <File FileName="Assets\Scripts\GameManagerScript.cs" Line="24" Column="36" />
+      <File FileName="Assets\Scripts\Networking Scripts\NetworkManager.cs" Line="137" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

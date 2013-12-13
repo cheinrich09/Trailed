@@ -48,6 +48,11 @@ public class FPSInputControl : MonoBehaviour
     {
 		if(networkView.isMine && !isFrozen)
 		{
+			if(isHunter)
+			{
+				//run faster
+				motor.movement.maxForwardSpeed=12;
+			}
        		// Get the input vector from kayboard or analog stick
         	Vector3 directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 			Debug.DrawRay(transform.position, transform.forward);
