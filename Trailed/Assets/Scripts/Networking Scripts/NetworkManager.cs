@@ -64,8 +64,8 @@ public class NetworkManager : MonoBehaviour
 	private int infoWindowHeight = 60;
 	
 	//public float BulletForce;
-	private bool Victory = false;
-	private string VictoryMessage = " is the Winner!";
+	//private bool Victory = false;
+	//private string VictoryMessage = " is the Winner!";
 	
 	//player/Object list
 	public Dictionary<NetworkPlayer,PlayerInfo> playerList = new Dictionary<NetworkPlayer,PlayerInfo>();
@@ -127,15 +127,6 @@ public class NetworkManager : MonoBehaviour
 		Application.LoadLevel (Application.loadedLevel);	
 	}
 	
-	public void FireBullet(GameObject Shooter)
-	{
-		if(!Victory)
-		{
-			GameObject GO = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnScript>().spawnBullet(Shooter.GetComponent<FPSInputControl>().bSpawn, Shooter);
-			networkView.RPC("SetBullet", RPCMode.AllBuffered, GO.networkView.viewID, Shooter.networkView.viewID);
-		}
-	}
-	
 	[RPC]
 	void addPlayer()
 	{
@@ -155,24 +146,6 @@ public class NetworkManager : MonoBehaviour
 	public void RespawnPoint(int index)
 	{
 		gameManager.pointsList[index].GetComponent<PointCollectScript>().isCollected = false;
-	}
-	
-	public void onBulletCollide(GameObject bullet, Collision collision)
-	{
-		/*if(collision.gameObject.networkView!=null)
-		{
-			//networkView.RPC ("BulletCollide",RPCMode.AllBuffered, bullet.networkView.viewID, collision.gameObject.networkView.viewID);
-		}*/
-		
-	 	NetworkViewID ShooterID = bullet.GetComponent<BulletScript>().parent.networkView.viewID;
-		if(collision.gameObject.tag == "Player" && collision.gameObject!=bullet.GetComponent<BulletScript>().parent)
-		{
-			networkView.RPC("Scored", RPCMode.AllBuffered, ShooterID, bullet.GetComponent<BulletScript>().parent.GetComponent<FPSInputControl>().Score+1);
-			//networkView.RPC("Scored", RPCMode.AllBuffered, ShooterID, bullet.GetComponent<BulletScript>().parent.GetComponent<FPSInputControl>().Score+50);
-		}
-		Destroy(bullet);
-			//networkView.RPC ("DeleteBullet", RPCMode.All, bullet.networkView.viewID);
-		//Destroy (bullet);
 	}
 	
 	public void OnHunterCatch(GameObject hunter, GameObject prey)
@@ -218,33 +191,6 @@ public class NetworkManager : MonoBehaviour
 		CapturedView.gameObject.GetComponent<FPSInputController>().isFrozen = true;
 		CapturedView.gameObject.GetComponent<FPSInputController>().isFrozen = true;
 	}
-	
-	[RPC]
-	void Scored(NetworkViewID ShooterID, int updatedScore)
-	{
-		NetworkView shooterView = NetworkView.Find(ShooterID);	
-		shooterView.gameObject.GetComponent<FPSInputControl>().Score=updatedScore;
-		//shooterView.gameObject.GetComponent<FPSInputControl>().Score+=15;
-		
-		if (shooterView.gameObject.GetComponent<FPSInputControl>().Score >150)
-		{
-			Victory = true;
-			///string messageToSend = (shooterView.gameObject.GetComponent<PlayerLabel>().PlayerName+" is the Winner!");
-			networkView.RPC("SendMessageToEveryone", RPCMode.All,VictoryMessage, shooterView.gameObject.GetComponent<PlayerLabel>().PlayerName+" (Winner)");
-		
-		
-		}
-	}
-	
-	/*[RPC]
-	void SetBullet(NetworkViewID BulletID, NetworkViewID ShooterID)
-	{
-		NetworkView bulletView = NetworkView.Find (BulletID);
-		NetworkView shooterView = NetworkView.Find(ShooterID);
-		bulletView.gameObject.GetComponent<BulletScript>().parent = shooterView.gameObject;
-		//bulletView.gameObject.rigidbody.velocity = Vector3.zero;
-		//bulletView.gameObject.rigidbody.AddForce(BulletForce * bulletView.gameObject.transform.forward);
-	}*/
 
 	
 	[RPC]
