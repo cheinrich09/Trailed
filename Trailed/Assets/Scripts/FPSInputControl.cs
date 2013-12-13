@@ -103,7 +103,7 @@ public class FPSInputControl : MonoBehaviour
 					{
 						if (networkView.isMine)
 						{
-							GameObject.Find ("GameGO").GetComponent<NetworkManager>().OnHunterCatch(this.gameObject, hit.collider.gameObject);//TopHitObject);
+							GameObject.Find ("GameGo").GetComponent<NetworkManager>().OnHunterCatch(this.gameObject, hit.collider.gameObject);//TopHitObject);
 						}
 					}
 				}
@@ -114,7 +114,7 @@ public class FPSInputControl : MonoBehaviour
 					{
 						if (networkView.isMine)
 						{
-							GameObject.Find ("GameGO").GetComponent<NetworkManager>().OnHunterCatch(this.gameObject, hit.collider.gameObject);//BottomHitObject);
+							GameObject.Find ("GameGo").GetComponent<NetworkManager>().OnHunterCatch(this.gameObject, hit.collider.gameObject);//BottomHitObject);
 						}
 					}
 				}

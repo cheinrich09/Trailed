@@ -48,7 +48,7 @@ public class GameManagerScript : MonoBehaviour {
 		}
 		
 		//Check if hunter lost
- 		if(totalScore >= POINTS_TO_WIN)
+ 		if(totalScore >= POINTS_TO_WIN && !gameOver)
  		{
  			gameOver = true;
  			hunterHasWon = false;

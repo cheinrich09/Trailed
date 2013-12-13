@@ -93,13 +93,13 @@ public class PlayerGUIScript : MonoBehaviour {
 						winnerGUI.color = Color.green;
 						winnerGUI.text = "Winner";
 					}
-					else
+					else if(!gameObject.GetComponent<FPSInputControl>().isHunter)
 					{
 						winnerGUI.color = Color.red;
 						winnerGUI.text = "You Lose";
 					}
 				}
-				else
+				else if (!gameManager.hunterHasWon)
 				{
 					if(!gameObject.GetComponent<FPSInputControl>().isHunter)
 					{

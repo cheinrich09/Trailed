@@ -223,7 +223,7 @@ public class NetworkManager : MonoBehaviour
 	public void FreezePlayer(NetworkViewID CapturedID)
 	{
 		NetworkView CapturedView = NetworkView.Find(CapturedID);
-		CapturedView.gameObject.GetComponent<FPSInputController>().isFrozen = true;
+		CapturedView.gameObject.GetComponent<FPSInputControl>().isFrozen = true;
 		CapturedView.gameObject.GetComponent<FPSInputController>().isFrozen = true;
 	}
 	
